@@ -8,10 +8,10 @@ import { disconnected, connected } from '../../actions/network'
 function mapDispatchToProps(dispatch) {
   return {
     setWidth: (value) => {
-      dispatch(setUI({ name: 'width', value }))
+      dispatch(setUI({ section: 'width', value }))
     },
     setHeight: (value) => {
-      dispatch(setUI({ name: 'height', value }))
+      dispatch(setUI({ section: 'height', value }))
     },
     disconnected: () => {
       dispatch(disconnected())

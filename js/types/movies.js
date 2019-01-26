@@ -1,2 +1,7 @@
+export const ADD_MOVIES = 'movies/ADD_MOVIES'
+
 export const ADD_MOVIE_TO_SELECTED = 'movies/ADD_MOVIE_TO_SELECTED'
+
+export const ADD_MOVIES_TO_SELECTED = 'movies/ADD_MOVIES_TO_SELECTED'
+
 export const DELETE_MOVIE_FROM_SELECTED = 'movies/DELETE_MOVIE_FROM_SELECTED'

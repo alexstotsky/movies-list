@@ -1,3 +1,5 @@
+import _isNull from 'lodash/isNull'
+
 import * as TYPES from '../types/ui'
 
 const initialState = {}
@@ -5,14 +7,24 @@ const initialState = {}
 export default function (state = initialState, action) {
   switch (action.type) {
     case TYPES.SET_UI_VALUE: {
-      let name = action.payload.name
-      if (typeof name === 'undefined') {
-        console.warn(action.type, 'undefined name was provided, with the following payload: ', action.payload)
-        name = `${action.type}_undefined_name_value`
+      if (_isNull(action.payload)) {
+        return state
       }
+      const {
+        value,
+        section = 'unknown-section',
+        key = 'unknown-key',
+      } = action.payload
+      let v = value
+
+      if (key !== 'unknown-key') {
+        v = state[section] || {}
+        v[key] = value
+      }
+
       return {
         ...state,
-        [name]: action.payload.value,
+        [section]: v,
       }
     }
     default:
