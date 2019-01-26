@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import HomeScreen from './containers/Home'
 
 import store from './store'
-import wrapper from './containers/ScreenWrapper'
+import wrapper from './wrappers/AppStateListeners'
 
 export function registerScreens() {
   Navigation.registerComponentWithRedux(

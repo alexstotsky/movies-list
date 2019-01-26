@@ -1,17 +1,9 @@
 import { connect } from 'react-redux'
+
 import { setUI } from '../../actions/ui'
 
-import ScreenWrapper from './ScreenWrapper.component'
+import AppStateListeners from './AppStateListeners.component'
 import { disconnected, connected } from '../../actions/network'
-
-function mapStateToProps(state) {
-  const { UI = {} } = state
-  const { width, height } = UI
-  return {
-    width,
-    height,
-  }
-}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -30,4 +22,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScreenWrapper)
+export default connect(null, mapDispatchToProps)(AppStateListeners)

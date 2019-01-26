@@ -1,12 +1,12 @@
 import React from 'react'
-import ScreenWrapper from './ScreenWrapper.container'
+import AppStateListeners from './AppStateListeners.container'
 
 export default function (Component) {
   return function () {
     return (
-      <ScreenWrapper>
+      <AppStateListeners>
         <Component />
-      </ScreenWrapper>
+      </AppStateListeners>
     )
   }
 }

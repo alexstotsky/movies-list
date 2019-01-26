@@ -6,12 +6,10 @@ import PropTypes from 'prop-types'
 
 const NO_CONNECTION_MARKER = 'none'
 
-export default class ScreenWrapper extends React.Component {
+export default class AppStateListeners extends React.Component {
   static propTypes = {
     setHeight: PropTypes.func.isRequired,
     setWidth: PropTypes.func.isRequired,
-    width: PropTypes.number,
-    height: PropTypes.number,
   }
 
   constructor() {

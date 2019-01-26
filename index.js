@@ -10,18 +10,42 @@ registerScreens();
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
-      stack: {
+      bottomTabs: {
         children: [
           {
-            component: {
-              name: 'homeScreen',
-              options: {
-                topBar: {
-                  title: {
-                    text: 'Feel like at home',
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: 'homeScreen',
+                    options: {
+                      topBar: {
+                        title: {
+                          text: 'Feel like at home',
+                        },
+                      },
+                    },
                   },
                 },
-              },
+              ],
+            },
+          },
+          {
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: 'homeScreen',
+                    options: {
+                      topBar: {
+                        title: {
+                          text: 'Feel like at home',
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
             },
           },
         ],
