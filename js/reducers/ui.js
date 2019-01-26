@@ -1,4 +1,5 @@
 import _isNull from 'lodash/isNull'
+import _isArray from 'lodash/isArray'
 
 import * as TYPES from '../types/ui'
 
@@ -15,7 +16,11 @@ export default function (state = initialState, action) {
         section = 'unknown-section',
         key = 'unknown-key',
       } = action.payload
-      let v = value
+      let v = typeof value === 'object'
+        ? _isArray(value)
+          ? Object.assign([], value)
+          : Object.assign({}, value)
+        : value
 
       if (key !== 'unknown-key') {
         v = state[section] || {}
