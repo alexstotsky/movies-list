@@ -1,3 +1,7 @@
+export const SEND_MOVIES_REQUEST = 'movies/SEND_MOVIES_REQUEST'
+
+export const GET_MOVIES_FROM_JSON = 'movies/GET_MOVIES_FROM_JSON'
+
 export const ADD_MOVIES = 'movies/ADD_MOVIES'
 
 export const ADD_MOVIE_TO_SELECTED = 'movies/ADD_MOVIE_TO_SELECTED'

@@ -1,5 +1,11 @@
 import * as TYPES from '../types/movies'
 
+export function sendMoviesRequest() {
+  return {
+    type: TYPES.SEND_MOVIES_REQUEST,
+  }
+}
+
 export function addMovies(payload) {
   return {
     type: TYPES.ADD_MOVIES,
@@ -7,7 +13,7 @@ export function addMovies(payload) {
   }
 }
 
-export function addMovie(payload) {
+export function addMovieToSelected(payload) {
   return {
     type: TYPES.ADD_MOVIE_TO_SELECTED,
     payload,
