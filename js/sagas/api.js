@@ -24,12 +24,20 @@ export function* connectionHandlerSaga() {
 function* apiHandlerSaga(requestChan) {
   while (true) {
     const action = yield take(requestChan)
-    const { payload: { path, method } } = action
-    const response = yield call(apiCall, { path, method })
+    const { payload: actionPayload = {} } = action
+    const {
+      path, method, headers, payload, onSuccess, onFail,
+    } = actionPayload
+    const response = yield call(
+      apiCall,
+      {
+        path, method, headers, payload,
+      },
+    )
     if (response.status && /^20\d/.test(response.status.toString())) {
-      yield put({ type: API_REQUEST_SUCCESS, response, action })
+      yield put({ type: API_REQUEST_SUCCESS, response, onSuccess })
     } else {
-      yield put({ type: API_REQUEST_FAIL, response, action })
+      yield put({ type: API_REQUEST_FAIL, response, onFail })
     }
   }
 }
@@ -38,8 +46,8 @@ function* apiHandlerSaga(requestChan) {
 function* apiHandleFail() {
   while (true) {
     const fail = yield take(API_REQUEST_FAIL)
-    if (fail.action.payload.onFail) {
-      yield put({ type: fail.action.payload.onFail, payload: fail.response.payload })
+    if (fail.onFail) {
+      yield put({ type: fail.onFail, payload: fail.response.payload })
     } else {
       console.warn(fail.response)
     }
@@ -49,8 +57,8 @@ function* apiHandleFail() {
 function* apiHandleSuccess() {
   while (true) {
     const success = yield take(API_REQUEST_SUCCESS)
-    if (success.action.payload.onSuccess) {
-      yield put({ type: success.action.payload.onSuccess, payload: success.response.payload })
+    if (success.onSuccess) {
+      yield put({ type: success.onSuccess, payload: success.response.payload })
     }
   }
 }
