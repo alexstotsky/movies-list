@@ -35,9 +35,9 @@ function* apiHandlerSaga(requestChan) {
       },
     )
     if (response.status && /^20\d/.test(response.status.toString())) {
-      yield put({ type: API_REQUEST_SUCCESS, response, onSuccess })
+      yield put({ type: API_REQUEST_SUCCESS, payload: response.payload, onSuccess })
     } else {
-      yield put({ type: API_REQUEST_FAIL, response, onFail })
+      yield put({ type: API_REQUEST_FAIL, payload: response.payload, onFail })
     }
   }
 }
@@ -47,9 +47,9 @@ function* apiHandleFail() {
   while (true) {
     const fail = yield take(API_REQUEST_FAIL)
     if (fail.onFail) {
-      yield put({ type: fail.onFail, payload: fail.response.payload })
+      yield put({ type: fail.onFail, payload: fail.payload })
     } else {
-      console.warn(fail.response)
+      console.warn(fail.payload)
     }
   }
 }
@@ -58,7 +58,7 @@ function* apiHandleSuccess() {
   while (true) {
     const success = yield take(API_REQUEST_SUCCESS)
     if (success.onSuccess) {
-      yield put({ type: success.onSuccess, payload: success.response.payload })
+      yield put({ type: success.onSuccess, payload: success.payload })
     }
   }
 }
