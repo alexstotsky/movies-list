@@ -7,16 +7,17 @@ import apiCall from '../utils/api'
 import { DISCONNECTED, IS_CONNECTED } from '../types/network'
 
 export function* connectionHandlerSaga() {
-  const requestChan = yield actionChannel([API_REQUEST], buffers.expanding(5))
   yield all([
     fork(apiHandleSuccess),
     fork(apiHandleFail),
   ])
   while (true) {
     yield take(IS_CONNECTED)
+    const requestChan = yield actionChannel([API_REQUEST], buffers.expanding(5))
     const apiHandlerActivity = yield fork(apiHandlerSaga, requestChan)
     yield take(DISCONNECTED)
     yield cancel(apiHandlerActivity)
+    requestChan.close()
   }
 }
 
@@ -40,7 +41,7 @@ function* apiHandleFail() {
     if (fail.action.payload.onFail) {
       yield put({ type: fail.action.payload.onFail, payload: fail.response.payload })
     } else {
-      console.error(fail.response)
+      console.warn(fail.response)
     }
   }
 }
