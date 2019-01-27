@@ -20,7 +20,7 @@ export function addMovieToSelected(payload) {
   }
 }
 
-export function addMultipleMovies(payload) {
+export function selectMultipleMovies(payload) {
   return {
     type: TYPES.ADD_MOVIES_TO_SELECTED,
     payload,
