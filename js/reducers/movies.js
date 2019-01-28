@@ -16,14 +16,15 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case TYPES.ADD_MOVIES: {
-      const { data } = action.payload
-      if (!_isArray(data)) {
-        console.warn('[ADD_MOVIES] data should be an array')
+      const { data = {} } = action.payload
+      const { movies } = data
+      if (!_isArray(movies)) {
+        console.warn('[ADD_MOVIES] data.movies should be an array', movies)
         return state
       }
       return {
         ...state,
-        movies: _reduce(data, (acc, value) => {
+        movies: _reduce(movies, (acc, value) => {
           const { idIMDB } = value
           if (!idIMDB) {
             return acc
