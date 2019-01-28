@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
       }
       return {
         ...state,
-        movies: _reduce(movies, (acc, value) => {
+        allMovies: _reduce(movies, (acc, value) => {
           const { idIMDB } = value
           if (!idIMDB) {
             return acc
