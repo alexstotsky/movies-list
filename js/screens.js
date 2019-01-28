@@ -2,7 +2,7 @@ import { Navigation } from 'react-native-navigation'
 import { Provider } from 'react-redux'
 
 import LoadingScreen from './containers/Loading'
-import HomeScreen from './containers/Home'
+import TopListScreen from './containers/TopList'
 import SelectedFilmsScreen from './containers/SelectedFilms'
 
 import store from './store'
@@ -16,8 +16,8 @@ export function registerScreens() {
     store,
   )
   Navigation.registerComponentWithRedux(
-    'homeScreen',
-    () => wrapper(HomeScreen),
+    'topListScreen',
+    () => wrapper(TopListScreen),
     Provider,
     store,
   )

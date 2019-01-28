@@ -14,7 +14,7 @@ export const goToApp = async () => {
           children: [
             {
               component: {
-                name: 'homeScreen',
+                name: 'topListScreen',
                 options: {
                   bottomTab: {
                     fontSize: 14,

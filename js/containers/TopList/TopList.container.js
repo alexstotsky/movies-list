@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 
-import { addMovieToSelected } from '../../actions/movies'
+import { addMoviesToSelected } from '../../actions/movies'
 
-import HomeComponent from './Home.component'
+import TopListComponent from './TopList.component'
 
 function mapStateToProps(state) {
   const { UI = {}, movies = {} } = state
@@ -17,9 +17,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addMovieToSelected: (id) => {
-      dispatch(addMovieToSelected({ id }))
+      dispatch(addMoviesToSelected({ data: [id] }))
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(TopListComponent)

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import Row from '../../components/FilmRow'
 
-class Home extends React.Component {
+class TopList extends React.Component {
   static propTypes = {
     width: PropTypes.number,
     allMovies: PropTypes.shape({
@@ -30,6 +30,7 @@ class Home extends React.Component {
   render() {
     const { width, allMovies, addMovieToSelected } = this.props
     const { data, ids } = allMovies
+    console.log(this.props)
     return (
       <ScrollView
         ref={this._scrollView}
@@ -52,4 +53,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+export default TopList
