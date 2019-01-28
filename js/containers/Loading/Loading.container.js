@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 
 import { setUI } from '../../actions/ui'
-import { selectMultipleMovies, sendMoviesRequest } from '../../actions/movies'
+import { selectMultipleMovies } from '../../actions/movies'
 
 import Loading from './Loading.component'
 
@@ -18,24 +18,23 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setVisited: (visitedPages) => {
-      if (!_.isArray(visitedPages)) {
-        console.error('[Loading container] setVisited() expects an Array')
-        return
+      let data = visitedPages
+      if (!_.isArray(data)) {
+        console.log('[Loading container] setVisited() expects an Array', data)
+        data = []
       }
       dispatch(setUI({
         section: 'visitedPages',
-        value: visitedPages,
+        value: data,
       }))
     },
     setSelectedMovies: (selectedMovies) => {
-      if (!_.isArray(selectedMovies)) {
-        console.error('[Loading container] setVisited() expects an Array')
-        return
+      let data = selectedMovies
+      if (!_.isArray(data)) {
+        console.log('[Loading container] setSelectedMovies() expects an Array', data)
+        data = []
       }
-      dispatch(selectMultipleMovies({ data: selectedMovies }))
-    },
-    sendMoviesRequest: () => {
-      dispatch(sendMoviesRequest())
+      dispatch(selectMultipleMovies({ data }))
     },
   }
 }

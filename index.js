@@ -10,14 +10,8 @@ registerScreens();
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'homeScreen',
-            },
-          },
-        ],
+      component: {
+        name: 'loadingScreen',
       },
     },
   })
