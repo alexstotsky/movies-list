@@ -8,6 +8,7 @@
     "lint": "eslint index.js js --ignore-path .gitignore"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "react": "16.6.3",
     "react-native": "0.57.8",

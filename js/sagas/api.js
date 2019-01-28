@@ -26,14 +26,15 @@ function* apiHandlerSaga(requestChan) {
     const action = yield take(requestChan)
     const { payload: actionPayload = {} } = action
     const {
-      path, method, headers, payload, onSuccess, onFail,
+      path, method, headers, timeout, payload, onSuccess, onFail,
     } = actionPayload
     const response = yield call(
       apiCall,
       {
-        path, method, headers, payload,
+        path, method, headers, payload, timeout,
       },
     )
+    console.log(response)
     if (response.status && /^20\d/.test(response.status.toString())) {
       yield put({ type: API_REQUEST_SUCCESS, payload: response.payload, onSuccess })
     } else {
