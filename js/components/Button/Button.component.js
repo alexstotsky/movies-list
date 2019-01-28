@@ -4,6 +4,8 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
+import COLORS from '../../constants/colors'
+
 import { styleSheet } from '../../utils/commonPropTypes'
 
 export default class Button extends React.PureComponent {
@@ -27,10 +29,10 @@ export default class Button extends React.PureComponent {
     return (
       <View style={containerStyle}>
         <TouchableOpacity
-          style={[red ? styles.buttonRed : styles.buttonGreen, buttonStyle]}
+          style={[styles.button, red ? styles.buttonRed : styles.buttonGreen, buttonStyle]}
           onPress={onPress}
         >
-          <Text style={textStyle}>
+          <Text style={[styles.text, textStyle]}>
             {label}
           </Text>
         </TouchableOpacity>
@@ -39,14 +41,20 @@ export default class Button extends React.PureComponent {
   }
 }
 
-const styles = StyleSheet({
+const styles = StyleSheet.create({
   buttonRed: {
-    color: 'red',
+    backgroundColor: COLORS.redButton,
   },
   buttonGreen: {
-    color: 'green',
+    backgroundColor: COLORS.greenButton,
   },
   button: {
     borderRadius: 5,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#fff',
   },
 })

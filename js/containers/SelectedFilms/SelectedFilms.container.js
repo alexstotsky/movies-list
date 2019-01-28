@@ -5,13 +5,15 @@ import { deleteMovie } from '../../actions/movies'
 import SelectedFilms from './SelectedFilms.component'
 
 function mapStateToProps(state) {
-  const { UI = {}, movies = [] } = state
+  const { UI = {}, movies = {} } = state
   const { width, height } = UI
+  const { selectedMovies, allMovies } = movies
 
   return {
     width,
     height,
-    movies,
+    allMovies,
+    selectedMovies,
   }
 }
 

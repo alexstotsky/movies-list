@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 
+import { addMovieToSelected } from '../../actions/movies'
+
 import HomeComponent from './Home.component'
 
 function mapStateToProps(state) {
@@ -12,4 +14,12 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(HomeComponent)
+function mapDispatchToProps(dispatch) {
+  return {
+    addMovieToSelected: (id) => {
+      dispatch(addMovieToSelected({ id }))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent)

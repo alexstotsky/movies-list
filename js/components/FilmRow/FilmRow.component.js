@@ -8,15 +8,21 @@ import { movie, defaultMovieObj } from '../../utils/commonPropTypes'
 
 import Subtitle from '../Subtitle'
 import LinkItem from '../LinkItem'
+import Button from '../Button'
 
 export default class FilmRow extends React.PureComponent {
   static propTypes = {
     width: PropTypes.number.isRequired,
     movie,
+    movieId: PropTypes.string.isRequired,
+    toggleScroll: PropTypes.func.isRequired,
+    buttonRed: PropTypes.bool.isRequired,
+    onButtonPress: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     defaultMovieObj,
+    buttonRed: false,
   }
 
   constructor(props) {
@@ -24,69 +30,150 @@ export default class FilmRow extends React.PureComponent {
     this.state = {
       animatedValue: new Animated.Value(0),
     }
+    this.isOpened = false
     this._panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        if (Math.abs(gestureState.dx) > 10) {
-          return true
+        if (Math.abs(gestureState.dx) < Math.abs(gestureState.dy)) {
+          return false
+        }
+        if (this.isOpened) {
+          return gestureState.dx > 10
+        }
+        if (!this.isOpened) {
+          return gestureState.dx < -10
         }
       },
-      onPanResponderGrant: () => {},
-      onPanResponderMove: () => {},
-      onPanResponderRelease: () => {},
+      onPanResponderGrant: () => {
+        const { toggleScroll } = this.props
+        toggleScroll(false)
+      },
+      onPanResponderMove: (evt, gestureState) => {
+        if (gestureState.dx < -10) {
+          this.execAnimation(1)
+          return
+        }
+        if (gestureState.dx > 10) {
+          this.execAnimation(0)
+        }
+      },
+      onPanResponderRelease: () => {
+        const { toggleScroll } = this.props
+        toggleScroll(true)
+      },
+      onPanResponderTerminate: () => {
+        const { toggleScroll } = this.props
+        toggleScroll(true)
+      },
     })
   }
 
+  execAnimation = (toValue) => {
+    const { animatedValue } = this.state
+    const { toggleScroll } = this.props
+    Animated.timing(
+      animatedValue,
+      {
+        toValue,
+        duration: 100,
+        useNativeDriver: true,
+      },
+    ).start(() => {
+      toggleScroll(true)
+      this.isOpened = !!toValue
+    })
+  }
+
+  onButtonPress = (id) => {
+    const { onButtonPress } = this.props
+    this.execAnimation(0)
+    onButtonPress(id)
+  }
+
   render() {
-    const { width, movie } = this.props
+    const {
+      width, movie, movieId, buttonRed,
+    } = this.props
     const {
       title, urlPoster, countries, year, genres, directors,
     } = movie
+    const { animatedValue } = this.state
     return (
-      <Animated.View
+      <View
         style={[styles.container, { width }]}
-        {...this._panResponder.panHandlers}
       >
-        <View style={styles.contentWrapper}>
-          <Image
-            style={styles.image}
-            source={{ uri: urlPoster }}
-          />
-          <View style={styles.descriptionBlock}>
-            <Subtitle subtitle={`${title} (${year})`} containerStyle={styles.title} />
-            <View style={styles.descriptionRow}>
-              {
-                genres.map((genre, index) => (
-                  <Subtitle
-                    key={index}
-                    subtitle={index === 0 ? genre : `, ${genre}`}
-                  />
-                ))
-              }
-            </View>
-            <View style={styles.descriptionRow}>
-              {
-                countries.map((country, index) => (
-                  <Subtitle
-                    key={index}
-                    subtitle={index === 0 ? country : `, ${country}`}
-                  />
-                ))
-              }
-            </View>
-            <View style={styles.descriptionRow}>
+        <Animated.View
+          style={[
+            styles.contentContainer,
+            {
+              transform: [{
+                translateX: animatedValue.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, -70],
+                }),
+              }],
+            },
+          ]}
+          {...this._panResponder.panHandlers}
+        >
+          <View style={styles.contentWrapper}>
+            <Image
+              style={styles.image}
+              source={{ uri: urlPoster }}
+            />
+            <View style={styles.descriptionBlock}>
+              <Subtitle subtitle={`${title} (${year})`} containerStyle={styles.title} />
+              <View style={styles.descriptionRow}>
                 {
-                  directors.map((directorObj, index) => (
-                    <LinkItem
+                  genres.map((genre, index) => (
+                    <Subtitle
                       key={index}
-                      label={index === 0 ? directorObj.name : `, ${directorObj.name}`}
-                      link={`https://www.imdb.com/name/${directorObj.id}`}
+                      subtitle={index === 0 ? genre : `, ${genre}`}
                     />
                   ))
                 }
+              </View>
+              <View style={styles.descriptionRow}>
+                {
+                  countries.map((country, index) => (
+                    <Subtitle
+                      key={index}
+                      subtitle={index === 0 ? country : `, ${country}`}
+                    />
+                  ))
+                }
+              </View>
+              <View style={styles.descriptionRow}>
+                  {
+                    directors.map((directorObj, index) => (
+                      <LinkItem
+                        key={index}
+                        label={index === 0 ? directorObj.name : `, ${directorObj.name}`}
+                        link={`https://www.imdb.com/name/${directorObj.id}`}
+                      />
+                    ))
+                  }
+              </View>
             </View>
           </View>
-        </View>
-      </Animated.View>
+        </Animated.View>
+        <Animated.View
+          style={[
+            styles.buttonWrapper,
+            {
+              opacity: animatedValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 1],
+              }),
+            },
+          ]}
+        >
+          <Button
+            label='Add to favorite'
+            onPress={() => this.onButtonPress(movieId)}
+            red={buttonRed}
+          />
+        </Animated.View>
+      </View>
     )
   }
 }
@@ -94,9 +181,14 @@ export default class FilmRow extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 5,
-    borderBottomWidth: 1,
     alignSelf: 'center',
+    borderBottomWidth: 1,
+  },
+  contentContainer: {
+    paddingVertical: 5,
+    position: 'relative',
+    zIndex: 2,
+    backgroundColor: '#fff',
   },
   contentWrapper: {
     flex: 1,
@@ -120,5 +212,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     width: '100%',
+  },
+  buttonWrapper: {
+    height: '100%',
+    width: 70,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    zIndex: 1,
+    justifyContent: 'center',
   },
 })

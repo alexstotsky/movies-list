@@ -11,6 +11,7 @@ class Home extends React.Component {
       data: PropTypes.object.isRequired,
       ids: PropTypes.arrayOf(PropTypes.string).isRequired,
     }).isRequired,
+    addMovieToSelected: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -20,14 +21,30 @@ class Home extends React.Component {
     },
   }
 
+  _scrollView = React.createRef()
+
+  toggleScroll = (scrollEnabled) => {
+    this._scrollView.current.setNativeProps({ scrollEnabled })
+  }
+
   render() {
-    const { width, allMovies } = this.props
+    const { width, allMovies, addMovieToSelected } = this.props
     const { data, ids } = allMovies
     return (
-      <ScrollView>
+      <ScrollView
+        ref={this._scrollView}
+      >
         {
           ids.map((movieId, index) => (
-            <Row key={index} movie={data[movieId]} width={width - 20} />
+            <Row
+              key={index}
+              movie={data[movieId]}
+              width={width - 20}
+              toggleScroll={this.toggleScroll}
+              onButtonPress={addMovieToSelected}
+              movieId={movieId}
+              buttonRed={false}
+            />
           ))
         }
       </ScrollView>
