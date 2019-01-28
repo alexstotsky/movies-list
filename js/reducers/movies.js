@@ -37,6 +37,10 @@ export default function (state = initialState, action) {
     }
     case TYPES.ADD_MOVIE_TO_SELECTED: {
       const { id } = action.payload
+      const index = _findIndex(state.selectedMovies, movieId => movieId === id)
+      if (index !== -1) {
+        return state
+      }
       return {
         ...state,
         selectedMovies: [
