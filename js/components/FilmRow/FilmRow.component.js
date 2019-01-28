@@ -6,8 +6,7 @@ import PropTypes from 'prop-types'
 
 import { movie, defaultMovieObj } from '../../utils/commonPropTypes'
 
-import Title from '../Title'
-import SubTitle from '../Subtitle'
+import Subtitle from '../Subtitle'
 import LinkItem from '../LinkItem'
 
 export default class FilmRow extends React.PureComponent {
@@ -40,68 +39,86 @@ export default class FilmRow extends React.PureComponent {
   render() {
     const { width, movie } = this.props
     const {
-      title, urlPoster, countries, year, genre, directors,
+      title, urlPoster, countries, year, genres, directors,
     } = movie
     return (
       <Animated.View
-        style={[
-          styles.container,
-          styles.horizontal,
-          { width },
-        ]}
+        style={[styles.container, { width }]}
         {...this._panResponder.panHandlers}
       >
-        <Image
-          style={styles.image}
-          source={{ uri: urlPoster }}
-        />
-        <Title
-          title={title}
-          titleStyle={styles.title}
-        />
-        <View style={styles.vertical}>
-          <SubTitle subtitle={year} />
-          <SubTitle subtitle={genre} />
-          <View style={styles.horizontal}>
-            {
-              countries.map((country, index) => (
-                <SubTitle key={index} subtitle={country} />
-              ))
-            }
+        <View style={styles.contentWrapper}>
+          <Image
+            style={styles.image}
+            source={{ uri: urlPoster }}
+          />
+          <View style={styles.descriptionBlock}>
+            <Subtitle subtitle={`${title} (${year})`} containerStyle={styles.title} />
+            <View style={styles.descriptionRow}>
+              {
+                genres.map((genre, index) => (
+                  <Subtitle
+                    key={index}
+                    subtitle={index === 0 ? genre : `, ${genre}`}
+                  />
+                ))
+              }
+            </View>
+            <View style={styles.descriptionRow}>
+              {
+                countries.map((country, index) => (
+                  <Subtitle
+                    key={index}
+                    subtitle={index === 0 ? country : `, ${country}`}
+                  />
+                ))
+              }
+            </View>
+            <View style={styles.descriptionRow}>
+                {
+                  directors.map((directorObj, index) => (
+                    <LinkItem
+                      key={index}
+                      label={index === 0 ? directorObj.name : `, ${directorObj.name}`}
+                      link={`https://www.imdb.com/name/${directorObj.id}`}
+                    />
+                  ))
+                }
+            </View>
           </View>
-        </View>
-        <View style={styles.vertical}>
-          {
-            directors.map((directorObj, index) => (
-              <LinkItem
-                key={index}
-                title={directorObj.name}
-                link={`https://www.imdb.com/name/${directorObj.id}`}
-              />
-            ))
-          }
         </View>
       </Animated.View>
     )
   }
 }
 
-const styles = StyleSheet({
+const styles = StyleSheet.create({
   container: {
-    minHeight: 50,
+    flex: 1,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    alignSelf: 'center',
   },
-  title: {
-    fontSize: 16,
+  contentWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    width: '100%',
+  },
+  descriptionBlock: {
+    flex: 1,
+    width: '100%',
   },
   image: {
-    width: 40,
+    width: 50,
     resizeMode: 'contain',
+    marginRight: 5,
   },
-  horizontal: {
+  title: {
+    flex: 1,
+    width: '100%',
+  },
+  descriptionRow: {
+    flex: 1,
     flexDirection: 'row',
-  },
-  vertical: {
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    width: '100%',
   },
 })

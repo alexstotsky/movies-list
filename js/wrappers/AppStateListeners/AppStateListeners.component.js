@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  View, NetInfo, StatusBar, StyleSheet, Dimensions,
+  SafeAreaView, NetInfo, StatusBar, StyleSheet, Dimensions,
 } from 'react-native'
 import PropTypes from 'prop-types'
 
@@ -52,10 +52,10 @@ export default class AppStateListeners extends React.Component {
   render() {
     const { children } = this.props
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <StatusBar barStyle='dark-content' translucent backgroundColor='transparent' />
         {children}
-      </View>
+      </SafeAreaView>
     )
   }
 }

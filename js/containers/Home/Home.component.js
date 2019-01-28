@@ -1,34 +1,38 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { ScrollView } from 'react-native'
 import PropTypes from 'prop-types'
 
-import Title from '../../components/Title'
-import SubTitle from '../../components/Subtitle'
+import Row from '../../components/FilmRow'
 
 class Home extends React.Component {
   static propTypes = {
     width: PropTypes.number,
-    height: PropTypes.number,
+    allMovies: PropTypes.shape({
+      data: PropTypes.object.isRequired,
+      ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+    }).isRequired,
+  }
+
+  static defaultProps = {
+    allMovies: {
+      data: {},
+      ids: [],
+    },
   }
 
   render() {
-    const { height, width } = this.props
+    const { width, allMovies } = this.props
+    const { data, ids } = allMovies
     return (
-      <View style={styles.container}>
-        <Title title='Home screen' />
-        <SubTitle subtitle={`Height is ${height}`} />
-        <SubTitle subtitle={`Width is ${width}`} />
-      </View>
+      <ScrollView>
+        {
+          ids.map((movieId, index) => (
+            <Row key={index} movie={data[movieId]} width={width - 20} />
+          ))
+        }
+      </ScrollView>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-})
 
 export default Home

@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import HomeComponent from './Home.component'
 
 function mapStateToProps(state) {
-  const { UI = {} } = state
-  const { width, height } = UI
+  const { UI = {}, movies = {} } = state
+  const { width } = UI
+  const { allMovies } = movies
   return {
     width,
-    height,
+    allMovies,
   }
 }
 
