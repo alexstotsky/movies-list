@@ -5,6 +5,7 @@ import {
 import PropTypes from 'prop-types'
 
 import { movie, defaultMovieObj } from '../../utils/commonPropTypes'
+import COLORS from '../../constants/colors'
 
 import Subtitle from '../Subtitle'
 import LinkItem from '../LinkItem'
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     position: 'relative',
     zIndex: 2,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.appBackground,
   },
   contentWrapper: {
     flex: 1,
