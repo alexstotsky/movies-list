@@ -13,23 +13,16 @@ export function addMovies(payload) {
   }
 }
 
-export function addMovieToSelected(payload) {
+export function addMoviesToSelected(payload) {
   return {
-    type: TYPES.ADD_MOVIE_TO_SELECTED,
-    payload,
-  }
-}
-
-export function selectMultipleMovies(payload) {
-  return {
-    type: TYPES.ADD_MOVIES_TO_SELECTED,
+    type: TYPES.ADD_MOVIES_TO_SELECTED_REQUEST,
     payload,
   }
 }
 
 export function deleteMovie(payload) {
   return {
-    type: TYPES.DELETE_MOVIE_FROM_SELECTED,
+    type: TYPES.DELETE_MOVIE_FROM_SELECTED_REQUEST,
     payload,
   }
 }

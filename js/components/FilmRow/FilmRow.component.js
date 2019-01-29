@@ -74,7 +74,7 @@ export default class FilmRow extends React.PureComponent {
       animatedValue,
       {
         toValue,
-        duration: 100,
+        duration: 300,
         useNativeDriver: true,
       },
     ).start(() => {

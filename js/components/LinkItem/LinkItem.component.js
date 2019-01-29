@@ -1,7 +1,11 @@
 import React from 'react'
-import { Text, TouchableOpacity, Linking } from 'react-native'
+import {
+  Text, TouchableOpacity, Linking, StyleSheet,
+} from 'react-native'
 import PropTypes from 'prop-types'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
+
+import COLORS from '../../constants/colors'
 
 import { styleSheet } from '../../utils/commonPropTypes'
 
@@ -50,12 +54,18 @@ class LinkItem extends React.PureComponent {
         style={containerStyle}
         onPress={() => this.onPress(link)}
       >
-        <Text style={labelStyle}>
+        <Text style={[styles.text, labelStyle]}>
           {label}
         </Text>
       </TouchableOpacity>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  text: {
+    color: COLORS.linkColor,
+  },
+})
 
 export default LinkItem

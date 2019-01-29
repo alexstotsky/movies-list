@@ -2,6 +2,7 @@ import _isArray from 'lodash/isArray'
 import _findIndex from 'lodash/findIndex'
 import _slice from 'lodash/slice'
 import _reduce from 'lodash/reduce'
+import _isString from 'lodash/isString'
 
 import * as TYPES from '../types/movies'
 
@@ -69,12 +70,10 @@ export default function (state = initialState, action) {
         console.warn('[ADD_MOVIES_TO_SELECTED] data should be an array')
         return state
       }
+      const set = new Set([...state.selectedMovies, ...data])
       return {
         ...state,
-        selectedMovies: [
-          ...state.selectedMovies,
-          ...data,
-        ],
+        selectedMovies: Array.from(set),
       }
     }
     default:
