@@ -6,7 +6,7 @@
   "rules": {
     "jsx-quotes": ["error", "prefer-single"],
     "react/jsx-filename-extension": [2, { "extensions": [".js"] }],
-    "semi": 0,
+    "semi": ["error", "never"],
     "max-len": 0,
     "no-console": 0,
     "no-shadow": 0,
