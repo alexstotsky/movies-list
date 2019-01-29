@@ -34,6 +34,7 @@ export default class SelectedFilms extends React.Component {
       width, selectedMovies, allMovies, deleteMovie,
     } = this.props
     const { data } = allMovies
+    console.log(data, selectedMovies)
     return (
       <ScrollView
         contentConatinerStyle={styles.container}
@@ -41,16 +42,22 @@ export default class SelectedFilms extends React.Component {
       >
         {
           selectedMovies.map((movieId, index) => (
-            <Row
-              key={index}
-              movie={data[movieId]}
-              width={width - 20}
-              toggleScroll={this.toggleScroll}
-              onButtonPress={deleteMovie}
-              movieId={movieId}
-              buttonRed
-              buttonLabel='Remove'
-            />
+            data[movieId]
+              ? (
+                <Row
+                  key={index}
+                  movie={data[movieId]}
+                  width={width - 20}
+                  toggleScroll={this.toggleScroll}
+                  onButtonPress={deleteMovie}
+                  movieId={movieId}
+                  buttonRed
+                  buttonLabel='Remove'
+                />
+              )
+              : (
+                null
+              )
           ))
         }
       </ScrollView>

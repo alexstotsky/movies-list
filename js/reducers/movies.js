@@ -2,13 +2,12 @@ import _isArray from 'lodash/isArray'
 import _findIndex from 'lodash/findIndex'
 import _slice from 'lodash/slice'
 import _reduce from 'lodash/reduce'
-import _isString from 'lodash/isString'
 
 import * as TYPES from '../types/movies'
 
 const initialState = {
   selectedMovies: [],
-  movies: {
+  allMovies: {
     ids: [],
     data: {},
   },
