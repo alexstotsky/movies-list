@@ -16,6 +16,7 @@ export default class FilmRow extends React.PureComponent {
     movie,
     movieId: PropTypes.string.isRequired,
     toggleScroll: PropTypes.func.isRequired,
+    buttonLabel: PropTypes.string.isRequired,
     buttonRed: PropTypes.bool.isRequired,
     onButtonPress: PropTypes.func.isRequired,
   }
@@ -23,6 +24,7 @@ export default class FilmRow extends React.PureComponent {
   static defaultProps = {
     defaultMovieObj,
     buttonRed: false,
+    buttonLabel: '',
   }
 
   constructor(props) {
@@ -91,7 +93,7 @@ export default class FilmRow extends React.PureComponent {
 
   render() {
     const {
-      width, movie, movieId, buttonRed,
+      width, movie, movieId, buttonRed, buttonLabel,
     } = this.props
     const {
       title, urlPoster, countries, year, genres, directors,
@@ -168,7 +170,7 @@ export default class FilmRow extends React.PureComponent {
           ]}
         >
           <Button
-            label='Add to favorite'
+            label={buttonLabel}
             onPress={() => this.onButtonPress(movieId)}
             red={buttonRed}
           />

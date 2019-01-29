@@ -45,6 +45,7 @@ class TopList extends React.Component {
               onButtonPress={addMovieToSelected}
               movieId={movieId}
               buttonRed={false}
+              buttonLabel='Add to selected'
             />
           ))
         }

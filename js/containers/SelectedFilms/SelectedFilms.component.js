@@ -49,6 +49,7 @@ export default class SelectedFilms extends React.Component {
               onButtonPress={deleteMovie}
               movieId={movieId}
               buttonRed
+              buttonLabel='Remove'
             />
           ))
         }
