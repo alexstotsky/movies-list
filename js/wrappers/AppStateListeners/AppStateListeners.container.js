@@ -2,7 +2,8 @@ import { connect } from 'react-redux'
 
 import { setUI } from '../../actions/ui'
 
-import AppStateListeners from './AppStateListeners.component'
+// eslint-disable-next-line import/no-unresolved
+import AppStateListeners from './AppStateListeners'
 import { disconnected, connected } from '../../actions/network'
 
 function mapDispatchToProps(dispatch) {

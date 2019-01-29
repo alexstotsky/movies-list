@@ -41,7 +41,6 @@ export default class AppStateListeners extends React.Component {
 
   netInfoEvent = (isConnected) => {
     const { connected, disconnected } = this.props
-    console.log(isConnected)
     if (isConnected.type === NO_CONNECTION_MARKER) {
       disconnected()
     } else {
