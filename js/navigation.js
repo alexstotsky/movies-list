@@ -40,6 +40,20 @@ export const goToApp = async () => {
                 },
               },
             },
+            {
+              component: {
+                name: 'chartScreen',
+                options: {
+                  bottomTab: {
+                    fontSize: 14,
+                    text: 'Chart',
+                    icon: chartIcon,
+                    selectedIconColor: COLORS.activeItemColor,
+                    selectedTextColor: COLORS.activeItemColor,
+                  },
+                },
+              },
+            },
           ],
         },
       },
