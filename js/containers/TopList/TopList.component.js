@@ -30,7 +30,6 @@ class TopList extends React.Component {
   render() {
     const { width, allMovies, addMovieToSelected } = this.props
     const { data, ids } = allMovies
-    console.log(this.props)
     return (
       <ScrollView
         ref={this._scrollView}

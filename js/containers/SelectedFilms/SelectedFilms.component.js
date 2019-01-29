@@ -34,7 +34,6 @@ export default class SelectedFilms extends React.Component {
       width, selectedMovies, allMovies, deleteMovie,
     } = this.props
     const { data } = allMovies
-    console.log(data, selectedMovies)
     return (
       <ScrollView
         contentConatinerStyle={styles.container}
