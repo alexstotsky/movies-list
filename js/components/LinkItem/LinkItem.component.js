@@ -22,8 +22,8 @@ class LinkItem extends React.PureComponent {
   }
 
   onPress = async (link) => {
-    const isAvailable = await InAppBrowser.isAvailable()
-    if (isAvailable) {
+    try {
+      await InAppBrowser.isAvailable()
       InAppBrowser.open(link, {
         // iOS Properties
         dismissButtonStyle: 'cancel',
@@ -40,7 +40,7 @@ class LinkItem extends React.PureComponent {
       })
         .then(() => {})
         .catch(err => console.warn('[InAppBrowser] returned following error:\n', err))
-    } else {
+    } catch (e) {
       Linking.openURL(link)
     }
   }
