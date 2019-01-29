@@ -15,7 +15,7 @@ export default async function (options = {}) {
       },
       body: JSON.stringify(payload),
     })
-    return { status: response.status, payload: await response.json() }
+    return { status: response.status, payload: response.data }
   } catch (e) {
     return { error: e }
   }
