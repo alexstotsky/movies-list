@@ -35,7 +35,7 @@ function* apiHandlerSaga(requestChan) {
       },
     )
     console.log(response)
-    if (response.status && /^20\d/.test(response.status.toString())) {
+    if (response.status && /^20\d/.test(response.status.toString()) && !response.payload.error) {
       yield put({ type: API_REQUEST_SUCCESS, payload: response.payload, onSuccess })
     } else {
       yield put({ type: API_REQUEST_FAIL, payload: response.payload, onFail })
