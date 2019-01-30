@@ -21,7 +21,7 @@ export const movie = PropTypes.shape({
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   // plot: PropTypes.string.isRequired,
   // simplePlot: PropTypes.string.isRequired,
-  // idIMDB: PropTypes.string.isRequired,
+  idIMDB: PropTypes.string.isRequired,
   urlIMDB: PropTypes.string.isRequired,
   rating: PropTypes.string.isRequired,
   // metascore: PropTypes.string.isRequired,
