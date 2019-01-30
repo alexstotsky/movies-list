@@ -25,7 +25,8 @@ class SortControls extends React.Component {
       asc: PropTypes.bool,
       active: PropTypes.bool,
       label: PropTypes.string,
-      controlStyle: styleSheet,
+      containerStyle: styleSheet,
+      labelStyle: styleSheet,
       onPress: PropTypes.func.isRequired,
     })).isRequired,
   }
@@ -40,23 +41,25 @@ class SortControls extends React.Component {
     return (
       <View style={[styles[direction], containerStyle]}>
         {
-          controls.map((control, index) => {
-            return (
-              <View key={index} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableOpacity style={styles.row} onPress={control.onPress}>
-                  <SubTitle subtitle={control.label} />
-                  {
-                    control.active
-                      ? (control.asc
-                        ? <Icon size={15} name={control.iconUp.name} color='black' />
-                        : <Icon size={15} name={control.iconDown.name} color='black' />
-                      )
-                      : <Icon size={15} name={control.iconUp.name} color='gray' />
-                  }
-                </TouchableOpacity>
-              </View>
-            )
-          })
+          controls.map((control, index) => (
+            <View key={index} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <TouchableOpacity style={styles.row} onPress={control.onPress}>
+                <SubTitle
+                  subtitle={control.label}
+                  containerStyle={control.containerStyle}
+                  subtitleStyle={control.labelStyle}
+                />
+                {
+                  control.active
+                    ? (control.asc
+                      ? <Icon size={15} name={control.iconUp.name} color='black' />
+                      : <Icon size={15} name={control.iconDown.name} color='black' />
+                    )
+                    : <Icon size={15} name={control.iconUp.name} color='gray' />
+                }
+              </TouchableOpacity>
+            </View>
+          ))
         }
       </View>
     )

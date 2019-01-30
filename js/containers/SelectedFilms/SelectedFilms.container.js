@@ -1,21 +1,30 @@
 import { connect } from 'react-redux'
 
 import { deleteMovie } from '../../actions/movies'
-import { setUI } from '../../actions/ui'
+import { setMovieSort } from '../../actions/ui'
 
 import SelectedFilms from './SelectedFilms.component'
 
 function mapStateToProps(state) {
   const { UI = {}, movies = {} } = state
-  const { width, height } = UI
-  const { selectedMovies, allMovies, movieSort } = movies
+  const { width, height, sort_value = '' } = UI
+  const { selectedMovies, allMovies } = movies
+  const { data } = allMovies
 
+  const [activeControl = '', order = ''] = sort_value.split('-')
+  const sortedMovies = selectedMovies.map(el => data[el])
+    .sort((a, b) => {
+      if (order === 'asc') {
+        return a[activeControl] < b[activeControl] ? 1 : -1
+      }
+      return a[activeControl] > b[activeControl] ? 1 : -1
+    })
   return {
     width,
     height,
-    allMovies,
-    selectedMovies,
-    movieSort,
+    selectedMovies: sortedMovies,
+    activeControl,
+    order,
   }
 }
 
@@ -25,7 +34,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(deleteMovie({ id }))
     },
     setSort: (value) => {
-      dispatch(setUI({ section: 'movieSort', value }))
+      dispatch(setMovieSort({ value }))
     },
   }
 }

@@ -4,27 +4,20 @@ import PropTypes from 'prop-types'
 
 import SortControls from '../../components/SortControls'
 import Row from '../../components/FilmRow'
+import { movie } from '../../utils/commonPropTypes'
 
 export default class SelectedFilms extends React.Component {
   static propTypes = {
     width: PropTypes.number.isRequired,
-    selectedMovies: PropTypes.arrayOf(PropTypes.string).isRequired,
-    allMovies: PropTypes.shape({
-      data: PropTypes.object.isRequired,
-      ids: PropTypes.arrayOf(PropTypes.string).isRequired,
-    }).isRequired,
+    selectedMovies: PropTypes.arrayOf(movie).isRequired,
     deleteMovie: PropTypes.func.isRequired,
-    movieSort: PropTypes.string.isRequired,
+    activeControl: PropTypes.string.isRequired,
+    order: PropTypes.string.isRequired,
     setSort: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     selectedMovies: [],
-    allMovies: {
-      data: {},
-      ids: [],
-    },
-    movieSort: 'title-asc',
   }
 
   controls = {
@@ -55,13 +48,12 @@ export default class SelectedFilms extends React.Component {
   }
 
   prepareControls = () => {
-    const { movieSort } = this.props
-    const [activeControl, asc] = movieSort.split('-')
+    const { activeControl, order } = this.props
     return Object.keys(this.controls).map((el) => {
       const control = this.controls[el]
       return {
         label: control.label,
-        asc: asc === 'asc',
+        asc: order === 'asc',
         active: activeControl === el,
         iconUp: control.iconUp,
         iconDown: control.iconDown,
@@ -71,22 +63,20 @@ export default class SelectedFilms extends React.Component {
   }
 
   onPressControl = (controlName) => {
-    const { movieSort } = this.props
-    const [activeControl, asc] = movieSort.split('-')
+    const { activeControl, order, setSort } = this.props
     let value = ''
     if (activeControl === controlName) {
-      value = `${controlName}-${asc === 'asc' ? 'desc' : 'asc'}`
+      value = `${controlName}-${order === 'asc' ? 'desc' : 'asc'}`
     } else {
       value = `${controlName}-asc`
     }
-    console.log(value)
+    setSort(value)
   }
 
   render() {
     const {
-      width, selectedMovies, allMovies, deleteMovie,
+      width, selectedMovies, deleteMovie,
     } = this.props
-    const { data } = allMovies
     const controlsObj = this.prepareControls()
     return (
       <ScrollView
@@ -98,16 +88,16 @@ export default class SelectedFilms extends React.Component {
           controls={controlsObj}
         />
         {
-          selectedMovies.map((movieId, index) => (
-            data[movieId]
+          selectedMovies.map((movie, index) => (
+            movie
               ? (
                 <Row
                   key={index}
-                  movie={data[movieId]}
+                  movie={movie}
                   width={width - 20}
                   toggleScroll={this.toggleScroll}
                   onButtonPress={deleteMovie}
-                  movieId={movieId}
+                  movieId={movie.idIMDB}
                   buttonRed
                   buttonLabel='Remove'
                 />
