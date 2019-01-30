@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing PieChart component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "height": 50,
+        "width": 50,
+      }
+    }
+  >
+    <Surface
+      height={50}
+      width={50}
+    >
+      <Group
+        x={25}
+        y={25}
+      />
+    </Surface>
+  </View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "paddingLeft": 10,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`Testing PieChart component renders correctly 2`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "height": 25,
+        "width": 25,
+      }
+    }
+  >
+    <Surface
+      height={25}
+      width={25}
+    >
+      <Group
+        x={12.5}
+        y={12.5}
+      >
+        <AnimatedShape
+          d={[Function]}
+          key="pie_chart_0"
+        />
+      </Group>
+    </Surface>
+  </View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "paddingLeft": 10,
+      }
+    }
+  >
+    <TouchableWithoutFeedback
+      key="0"
+      onPress={[Function]}
+    >
+      <View>
+        <Text
+          style={
+            Array [
+              Object {
+                "marginTop": 5,
+              },
+              Object {
+                "color": undefined,
+                "fontWeight": "bold",
+              },
+            ]
+          }
+        >
+          15: 15%
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
+  </View>
+</View>
+`;

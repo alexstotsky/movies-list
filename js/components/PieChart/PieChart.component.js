@@ -40,6 +40,14 @@ class PieChart extends React.Component {
     selectedPadding: PropTypes.number.isRequired,
   }
 
+  static defaultProps = {
+    data: [],
+    pieWidth: 40,
+    pieHeight: 40,
+    innerRadius: 10,
+    selectedPadding: 10,
+  }
+
   constructor(props) {
     super(props)
     this.state = {

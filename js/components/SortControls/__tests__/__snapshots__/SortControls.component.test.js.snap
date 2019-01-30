@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing SortControls component renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+/>
+`;
+
+exports[`Testing SortControls component renders correctly 2`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flexDirection": "column",
+      },
+      Object {
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    key="0"
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <SubTitle
+        containerStyle={
+          Object {
+            "width": "100%",
+          }
+        }
+        subtitle="asd"
+        subtitleStyle={
+          Object {
+            "width": "100%",
+          }
+        }
+      />
+      <Icon
+        allowFontScaling={false}
+        color="black"
+        name="triangle-up"
+        size={15}
+      />
+    </TouchableOpacity>
+  </View>
+</View>
+`;

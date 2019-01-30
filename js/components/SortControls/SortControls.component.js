@@ -15,11 +15,9 @@ class SortControls extends React.Component {
     direction: PropTypes.oneOf(['row', 'column']).isRequired,
     controls: PropTypes.arrayOf(PropTypes.shape({
       iconUp: PropTypes.shape({
-        group: PropTypes.string,
         name: PropTypes.string,
       }),
       iconDown: PropTypes.shape({
-        group: PropTypes.string,
         name: PropTypes.string,
       }),
       asc: PropTypes.bool,

@@ -18,7 +18,8 @@ class LinkItem extends React.PureComponent {
   }
 
   static defaultProps = {
-    title: '',
+    label: '',
+    link: '',
   }
 
   onPress = async (link) => {
