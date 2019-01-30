@@ -15,7 +15,7 @@ export function getStorageItem(key) {
 
 export function setStorageItem(key, value) {
   return new Promise((res) => {
-    AsyncStorage.setItem(key, JSON.stringify(value))
+    AsyncStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value))
       .then(() => {
         res()
       })
