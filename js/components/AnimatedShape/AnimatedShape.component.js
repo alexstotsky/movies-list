@@ -29,7 +29,8 @@ export default class AnimatedShape extends React.Component {
   }
 
   computeNextState(nextProps) {
-    const graph = this.props.d()
+    const { d } = this.props
+    const graph = d()
 
     this.setState({
       path: graph.path,

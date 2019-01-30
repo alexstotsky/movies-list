@@ -4,21 +4,12 @@ import {
   Text,
   View,
   ART,
-  LayoutAnimation,
-  Dimensions,
   TouchableWithoutFeedback,
 } from 'react-native'
 import PropTypes from 'prop-types'
-import _reduce from 'lodash/reduce'
 
 import * as scale from 'd3-scale'
 import * as shape from 'd3-shape'
-import * as d3Array from 'd3-array'
-
-import {
-  scaleBand,
-  scaleLinear,
-} from 'd3-scale'
 
 import AnimatedShape from '../AnimatedShape'
 

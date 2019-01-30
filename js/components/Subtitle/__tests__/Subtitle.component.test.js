@@ -7,7 +7,7 @@ describe('Testing Subtitle component', () => {
   it('renders correctly', () => {
     const wrapper = shallow(
       <Subtitle subtitle='' />,
-    );
+    )
     expect(wrapper).toMatchSnapshot()
     wrapper.setProps({ subtitle: undefined })
     expect(wrapper).toMatchSnapshot()
@@ -25,5 +25,5 @@ describe('Testing Subtitle component', () => {
     expect(wrapper).toMatchSnapshot()
     wrapper.setProps({ subtitleStyle: {} })
     expect(wrapper).toMatchSnapshot()
-  });
-});
+  })
+})
