@@ -33,7 +33,7 @@ function* getInitialData() {
   const selected = yield call(getStorageItem, SELECTED_MOVIES)
   yield put({ type: ADD_MOVIES_TO_SELECTED, payload: { data: selected === null ? [] : JSON.parse(selected) } })
   const pages = yield call(getStorageItem, VISITED_PAGES)
-  yield put(setUI({ section: 'visited_pages', value: pages }))
+  yield put(setUI({ section: 'visited_pages', value: JSON.parse(pages) }))
   const sort = yield call(getStorageItem, SORT_VALUE)
   yield put(setUI({ section: 'sort_value', value: sort || '' }))
 }
