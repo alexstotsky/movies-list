@@ -97,7 +97,9 @@ class Hint extends React.PureComponent {
         </Animated.View>
         <View style={styles.closeButtonBlock}>
           <TouchableOpacity onPress={onPressClose} style={styles.row}>
-            <Text style={styles.text}>Got it</Text>
+            <Text style={styles.text}>
+              Got it
+            </Text>
             <Icon name='md-close-circle' size={16} color={COLORS.greenButton} />
           </TouchableOpacity>
         </View>

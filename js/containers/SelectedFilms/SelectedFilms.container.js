@@ -1,13 +1,16 @@
 import { connect } from 'react-redux'
 
 import { deleteMovie } from '../../actions/movies'
-import { setMovieSort } from '../../actions/ui'
+import { setMovieSort, setVisitedPage } from '../../actions/ui'
 
 import SelectedFilms from './SelectedFilms.component'
 
 function mapStateToProps(state) {
   const { UI = {}, movies = {} } = state
-  const { width, height, sort_value = '' } = UI
+  const {
+    width, height, sort_value = '', visited_pages = {},
+  } = UI
+  const { selected_films } = visited_pages
   const { selectedMovies, allMovies } = movies
   const { data } = allMovies
 
@@ -25,6 +28,7 @@ function mapStateToProps(state) {
     selectedMovies: sortedMovies,
     activeControl,
     order,
+    wasVisited: selected_films,
   }
 }
 
@@ -35,6 +39,9 @@ function mapDispatchToProps(dispatch) {
     },
     setSort: (value) => {
       dispatch(setMovieSort({ value }))
+    },
+    setVisited: () => {
+      dispatch(setVisitedPage({ key: 'selected_films', value: true }))
     },
   }
 }

@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Row from '../../components/FilmRow'
+import Hint from '../../components/Hint'
 
 class TopList extends React.Component {
   static propTypes = {
@@ -12,6 +13,8 @@ class TopList extends React.Component {
       ids: PropTypes.arrayOf(PropTypes.string).isRequired,
     }).isRequired,
     addMovieToSelected: PropTypes.func.isRequired,
+    setVisited: PropTypes.func.isRequired,
+    wasVisited: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -19,6 +22,7 @@ class TopList extends React.Component {
       data: {},
       ids: [],
     },
+    wasVisited: false,
   }
 
   _scrollView = React.createRef()
@@ -28,12 +32,24 @@ class TopList extends React.Component {
   }
 
   render() {
-    const { width, allMovies, addMovieToSelected } = this.props
+    const {
+      width, allMovies, addMovieToSelected, setVisited, wasVisited,
+    } = this.props
     const { data, ids } = allMovies
+    const buttonLabel = 'Add to selected'
     return (
       <ScrollView
         ref={this._scrollView}
       >
+        {
+          !wasVisited && (
+            <Hint
+              width={width - 20}
+              buttonLabel={buttonLabel}
+              onPressClose={setVisited}
+            />
+          )
+        }
         {
           ids.map((movieId, index) => (
             <Row
@@ -44,7 +60,7 @@ class TopList extends React.Component {
               onButtonPress={addMovieToSelected}
               movieId={movieId}
               buttonRed={false}
-              buttonLabel='Add to selected'
+              buttonLabel={buttonLabel}
             />
           ))
         }

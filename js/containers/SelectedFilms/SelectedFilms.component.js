@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 
 import SortControls from '../../components/SortControls'
 import Row from '../../components/FilmRow'
+import Hint from '../../components/Hint'
+
 import { movie } from '../../utils/commonPropTypes'
 
 export default class SelectedFilms extends React.Component {
@@ -14,10 +16,13 @@ export default class SelectedFilms extends React.Component {
     activeControl: PropTypes.string.isRequired,
     order: PropTypes.string.isRequired,
     setSort: PropTypes.func.isRequired,
+    setVisited: PropTypes.func.isRequired,
+    wasVisited: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
     selectedMovies: [],
+    wasVisited: false,
   }
 
   controls = {
@@ -75,9 +80,10 @@ export default class SelectedFilms extends React.Component {
 
   render() {
     const {
-      width, selectedMovies, deleteMovie,
+      width, selectedMovies, deleteMovie, setVisited, wasVisited,
     } = this.props
     const controlsObj = this.prepareControls()
+    const buttonLabel = 'Remove'
     return (
       <ScrollView
         contentConatinerStyle={styles.container}
@@ -87,6 +93,15 @@ export default class SelectedFilms extends React.Component {
           direction='row'
           controls={controlsObj}
         />
+        {
+          !wasVisited && selectedMovies.length > 0 && (
+            <Hint
+              width={width - 20}
+              buttonLabel={buttonLabel}
+              onPressClose={setVisited}
+            />
+          )
+        }
         {
           selectedMovies.map((movie, index) => (
             movie
@@ -99,7 +114,7 @@ export default class SelectedFilms extends React.Component {
                   onButtonPress={deleteMovie}
                   movieId={movie.idIMDB}
                   buttonRed
-                  buttonLabel='Remove'
+                  buttonLabel={buttonLabel}
                 />
               )
               : (
