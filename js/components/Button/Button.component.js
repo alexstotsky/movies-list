@@ -16,21 +16,24 @@ export default class Button extends React.PureComponent {
     label: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     red: PropTypes.bool,
+    disabled: PropTypes.bool,
   }
 
   static defaultProps = {
     red: false,
+    disabled: false,
   }
 
   render() {
     const {
-      label, onPress, containerStyle, buttonStyle, textStyle, red,
+      label, onPress, containerStyle, buttonStyle, textStyle, red, disabled,
     } = this.props
     return (
       <View style={containerStyle}>
         <TouchableOpacity
           style={[styles.button, red ? styles.buttonRed : styles.buttonGreen, buttonStyle]}
           onPress={onPress}
+          disabled={disabled}
         >
           <Text style={[styles.text, textStyle]}>
             {label}

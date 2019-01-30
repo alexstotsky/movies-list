@@ -4,6 +4,7 @@ export default {
   linkColor: '#59a6a6',
   greenButton: '#9dc24a',
   redButton: '#e15656',
+  lightgray: '#E1E1E1',
   chart: [
     '#6B36D7',
     '#D869EF',
